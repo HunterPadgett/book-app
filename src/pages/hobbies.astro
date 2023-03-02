@@ -1,12 +1,23 @@
-<body>
- <a href="/">Home</a>
- <a href="/about">About</a>
- <a href="/hobbies">Hobbies</a>
- <h1>Hobbies</h1>
- <ul>
-  <li>music</li>
-  <li>movies</li>
-  <li>coding</li>
-  <li>dread</li>
+---
+import Layout from "../layouts/Layout.astro";
+
+const hobbies = ["music", "movies", "coding", "crying"];
+---
+
+<Layout title="Hobbies">
+ <ul
+  class="w-48 text-sm font-medium rounded-lg border bg-gray-700 border-gray-600 text-white"
+ >
+  {
+   hobbies.map((hobby) => (
+    <li class="py-2 px-4 w-full rounded-t-lg border-b border-gray-600">
+     {hobby}
+    </li>
+   ))
+  }
  </ul>
-</body>
+</Layout>
+
+<script>
+  
+</script>
