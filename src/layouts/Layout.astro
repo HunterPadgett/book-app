@@ -1,4 +1,5 @@
 ---
+import Nav from "../components/Nav.astro";
 import "../styles/global.css";
 const { title } = Astro.props;
 ---
@@ -15,32 +16,15 @@ const { title } = Astro.props;
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-   href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap"
+   href="https://fonts.googleapis.com/css2?family=Oswald&family=Poppins&display=swap"
    rel="stylesheet"
   />
  </head>
  <body>
   <!-- nav -->
-  <nav class="bg-slate-700 mb-10">
-   <div class="container flex flex-wrap items-center justify-between mx-auto">
-    <div class="w-full">
-     <ul class="flex p-4 justify-around text-lg">
-      <li>
-       <a href="/" class="text-white hover:text-orange-400">Home</a>
-      </li>
-      <li>
-       <a href="/about" class="text-white hover:text-orange-400">About</a>
-      </li>
-      <li>
-       <a href="/hobbies" class="text-white hover:text-orange-400">Hobbies</a>
-      </li>
-     </ul>
-    </div>
-   </div>
-  </nav>
+  <Nav />
   <!-- main content -->
-  <div class="container flex flex-col mx-auto h-screen">
-   <h1 class="text-4xl mb-5">{title}</h1>
+  <div class="container mx-auto flex flex-col">
    <slot />
   </div>
   <!-- footer -->

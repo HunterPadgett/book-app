@@ -1,0 +1,132 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout>
+ <!-- header of page -->
+ <div
+  class="container grid grid-cols-1 p-4 text-center md:flex md:grid-cols-2 md:items-center md:justify-evenly"
+ >
+  <div>
+   <h1 class="mb-3 break-words text-4xl text-base-content md:mb-1 md:text-5xl">
+    Hello, <span class="text-secondary">User</span>
+   </h1>
+   <p class="mb-3 text-lg">Explore your collection</p>
+  </div>
+  <div class="stats overflow-hidden md:max-w-xs">
+   <div class="stat p-0">
+    <div class="stat-title text-base-content">book count</div>
+    <div class="stat-value mx-auto flex text-2xl text-primary md:text-3xl">
+     25.6K
+     <div class="stat-figure ml-2 text-primary">
+      <svg
+       xmlns="http://www.w3.org/2000/svg"
+       fill="none"
+       viewBox="0 0 24 24"
+       class="h-8 w-7 stroke-current"
+      >
+       <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+      </svg>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <!-- input and button -->
+ <div class="container mx-auto flex items-center justify-center p-4">
+  <input
+   type="text"
+   placeholder="Book title"
+   class="input-bordered input-secondary input m-2 w-full max-w-xs text-lg"
+  />
+  <button class="btn-secondary btn m-2 max-w-xs text-lg" id="add-book-btn"
+   >Add</button
+  >
+ </div>
+
+ <!-- book container -->
+ <div
+  class="container mx-auto grid grid-cols-1 gap-8 p-4 md:grid-cols-2"
+  id="books-read"
+ >
+  <!-- book  -->
+  <!-- <div
+   class="card card-side mx-auto max-w-fit border-2 border-primary shadow-lg shadow-neutral-600"
+  >
+   <figure>
+    <img src="" alt="Movie" />
+   </figure>
+   <div class="card-body p-4 text-center">
+    <h3 class="card-title mx-auto text-xl">They Both</h3>
+    <p>Date added: 3-2-23</p>
+   </div>
+  </div> -->
+ </div>
+</Layout>
+
+<script>
+ async function addBook() {
+  const title = document.querySelector("input");
+  const bookSection = document.querySelector("#books-read");
+  const convertedTitle = title.value
+   .split(" ")
+   .join("+")
+   .toLocaleLowerCase()
+   .trim();
+  let coverUrl = ``;
+  const month = new Date().getMonth() + 1;
+  const day = new Date().getDate();
+  const year = new Date().getFullYear();
+  const dateAdded = `${month}/${day}/${year}`;
+  console.log(dateAdded);
+
+  try {
+   // first fetch for book title
+   const response = await fetch(
+    `https://openlibrary.org/search.json?q=${convertedTitle}&limit=10`
+   );
+   const data = await response.json();
+   console.log(data);
+   const bookTitle = data.docs[0].title;
+   const isbn = data.docs[0].isbn[0];
+   //  second fetch for ISBN
+   const postsResponse = await fetch(
+    `https://openlibrary.org/isbn/${isbn}.json`
+   );
+   const isbnData = await postsResponse.json();
+   console.log(isbnData);
+   if (isbnData.covers[0]) {
+    coverUrl = `https://covers.openlibrary.org/b/id/${isbnData.covers[0]}-M.jpg`;
+    console.log(coverUrl);
+   } else {
+    coverUrl = "book cover not available";
+   }
+
+   const html = `
+  <div
+   class="card card-side mx-auto max-w-fit border-2 border-primary-focus shadow-lg shadow-neutral-600">
+   <figure>
+    <img class="max-w-xs" src="${coverUrl}" alt="book cover {bookTitle}" />
+   </figure>
+   <div class="card-body p-4 text-center">
+    <h2 class="card-title text-2xl mx-auto">${bookTitle}</h2>
+    <p>Date added: ${dateAdded}</p>
+   </div>
+  </div>
+   `;
+
+   bookSection.insertAdjacentHTML("beforeend", html);
+   title.value = "";
+   //  error handling
+  } catch (error) {
+   console.error(error);
+  }
+ }
+
+ document.querySelector("#add-book-btn").addEventListener("click", addBook);
+</script>
