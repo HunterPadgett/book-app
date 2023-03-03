@@ -1,8 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import AddBook from "../components/AddBook.astro";
 ---
 
-<Layout>
+<Layout title="My books">
  <!-- header of page -->
  <div
   class="container grid grid-cols-1 p-4 text-center md:flex md:grid-cols-2 md:items-center md:justify-evenly"
@@ -14,7 +15,7 @@ import Layout from "../layouts/Layout.astro";
    <p class="mb-3 text-lg">Explore your collection</p>
   </div>
   <div class="stats overflow-hidden md:max-w-xs">
-   <div class="stat p-0">
+   <div class="stat p-1">
     <div class="stat-title text-base-content">book count</div>
     <div class="stat-value mx-auto flex text-2xl text-primary md:text-3xl">
      69k
@@ -36,39 +37,16 @@ import Layout from "../layouts/Layout.astro";
   </div>
  </div>
 
- <!-- input and button -->
- <div class="container mx-auto flex items-center justify-center p-4">
-  <input
-   type="text"
-   placeholder="Book title"
-   class="input-bordered input-secondary input m-2 w-full max-w-xs text-lg"
-  />
-  <button class="btn-secondary btn m-2 max-w-xs text-lg" id="add-book-btn"
-   >Add</button
-  >
- </div>
+ <AddBook />
 
- <!-- book container -->
- <div
-  class="container mx-auto grid grid-cols-1 gap-8 p-4 md:grid-cols-2"
-  id="books-read"
- >
-  <!-- book  -->
-  <!-- <div
-   class="card card-side mx-auto max-w-fit border-2 border-primary shadow-lg shadow-neutral-600"
-  >
-   <figure>
-    <img src="" alt="Movie" />
-   </figure>
-   <div class="card-body p-4 text-center">
-    <h3 class="card-title mx-auto text-xl">They Both</h3>
-    <p>Date added: 3-2-23</p>
-   </div>
-  </div> -->
- </div>
+ <img
+  src="../../public/images/dude-reading.svg"
+  class="absolute top-0 bottom-0 left-0 right-0 -z-10 m-auto h-20 md:h-40"
+  alt=""
+ />
 </Layout>
 
-<script>
+<!-- <script>
  async function addBook() {
   const title = document.querySelector("input");
   const bookSection = document.querySelector("#books-read");
@@ -128,4 +106,4 @@ import Layout from "../layouts/Layout.astro";
  }
 
  document.querySelector("#add-book-btn").addEventListener("click", addBook);
-</script>
+</script> -->
