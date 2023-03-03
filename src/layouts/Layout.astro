@@ -1,5 +1,6 @@
 ---
 import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
 import "../styles/global.css";
 const { title } = Astro.props;
 ---
@@ -24,9 +25,10 @@ const { title } = Astro.props;
   <!-- nav -->
   <Nav />
   <!-- main content -->
-  <div class="container mx-auto flex flex-col">
+  <div class="footer-space container mx-auto flex flex-col">
    <slot />
   </div>
   <!-- footer -->
+  <Footer />
  </body>
 </html>

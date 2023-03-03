@@ -7,9 +7,12 @@
 }
 
 body {
-  font-family: 'Poppins', sans-serif;
+ font-family: "Poppins", sans-serif;
+ min-height: 100vh;
+ display: flex;
+ flex-direction: column;
 }
 
-#custom-white {
-  color: #eaedf3;
+footer {
+ margin-top: auto;
 }
