@@ -1,9 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import AddBook from "../components/AddBook.astro";
+
+const showHr = true;
 ---
 
 <Layout title="My books">
+ {showHr && <hr class="my-5 mx-auto w-2/3 md:my-10" />}
  <!-- header of page -->
  <div
   class="container grid grid-cols-1 p-4 text-center md:flex md:grid-cols-2 md:items-center md:justify-evenly"
@@ -40,70 +43,18 @@ import AddBook from "../components/AddBook.astro";
  <AddBook />
 
  <img
-  src="../../public/images/dude-reading.svg"
-  class="absolute top-0 bottom-0 left-0 right-0 -z-10 m-auto h-20 md:h-40"
-  alt=""
+  src="/images/dude-reading.svg"
+  class="absolute top-48 bottom-0 left-0 right-0 -z-10 m-auto h-28 md:h-44"
+  alt="character reading book"
  />
 </Layout>
 
-<!-- <script>
- async function addBook() {
-  const title = document.querySelector("input");
-  const bookSection = document.querySelector("#books-read");
-  const convertedTitle = title.value
-   .split(" ")
-   .join("+")
-   .toLocaleLowerCase()
-   .trim();
-  let coverUrl = ``;
-  const month = new Date().getMonth() + 1;
-  const day = new Date().getDate();
-  const year = new Date().getFullYear();
-  const dateAdded = `${month}/${day}/${year}`;
-  console.log(dateAdded);
-
-  try {
-   // first fetch for book title
-   const response = await fetch(
-    `https://openlibrary.org/search.json?q=${convertedTitle}&limit=10`
-   );
-   const data = await response.json();
-   console.log(data);
-   const bookTitle = data.docs[0].title;
-   const isbn = data.docs[0].isbn[0];
-   //  second fetch for ISBN
-   const postsResponse = await fetch(
-    `https://openlibrary.org/isbn/${isbn}.json`
-   );
-   const isbnData = await postsResponse.json();
-   console.log(isbnData);
-   if (isbnData.covers[0]) {
-    coverUrl = `https://covers.openlibrary.org/b/id/${isbnData.covers[0]}-M.jpg`;
-    console.log(coverUrl);
-   } else {
-    coverUrl = "book cover not available";
-   }
-
-   const html = `
-  <div
-   class="card card-side mx-auto max-w-fit border-2 border-base-content shadow-lg shadow-neutral-600">
-   <figure>
-    <img class="max-w-xs" src="${coverUrl}" alt="book cover {bookTitle}" />
-   </figure>
-   <div class="card-body p-4 text-center">
-    <h2 class="card-title text-2xl mx-auto">${bookTitle}</h2>
-    <p>Date added: ${dateAdded}</p>
-   </div>
-  </div>
-   `;
-
-   bookSection.insertAdjacentHTML("beforeend", html);
-   title.value = "";
-   //  error handling
-  } catch (error) {
-   console.error(error);
+<script>
+ function onLoad() {
+  if (!localStorage.getItem("username")) {
+   localStorage;
   }
  }
 
- document.querySelector("#add-book-btn").addEventListener("click", addBook);
-</script> -->
+ document.addEventListener("DOMContentLoaded", onLoad);
+</script>

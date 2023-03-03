@@ -1,8 +1,59 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const showHr = false;
 ---
 
 <Layout title="Landing Page">
- <p>our landing page wrapped in a layout</p>
- 
+ {showHr && <hr class="my-5 mx-auto w-2/3 md:my-10" />}
+ <div class="container mx-auto grid p-2 text-center md:w-2/3 md:p-4">
+  <img
+   src="../../public/images/dude_reading-2.svg"
+   class="-z-10 m-auto my-3 h-24 md:h-40"
+   alt="character reading book"
+  />
+  <h1 class="mb-10 text-4xl md:mb-14 md:text-6xl">Welcome to ShelfSpace</h1>
+  <p class="mb-5 text-lg">
+   The perfect reading companion where all of your reading history is at your
+   fingertips. Store and organize your completed books all in a single place,
+   without taking up any actual space.
+  </p>
+  <p class="mb-5 text-lg">
+   To get started please enter your first name below for a more customized
+   experience.
+  </p>
+
+  <div class="container mx-auto flex items-center justify-center p-2">
+   <input
+    type="text"
+    required
+    placeholder="First name"
+    class="input-bordered input-secondary input m-2 w-full max-w-xs text-base"
+    id="name-input"
+   />
+   <a href="/books">
+   <button class="btn-secondary btn m-2 max-w-xs text-base" id="name-btn"
+    >Let's go!</button
+   ></a>
+  </div>
+ </div>
 </Layout>
+
+<script>
+ function getName() {
+  const name = document.querySelector("#name-input").value;
+  const correctName =
+   name
+    .trim()
+    .toLocaleLowerCase()
+    .split("")
+    .splice(0, 1)
+    .join("")
+    .toLocaleUpperCase() +
+   name.trim().toLocaleLowerCase().split("").splice(1).join("");
+  console.log(correctName);
+  localStorage.setItem("username", correctName);
+ }
+
+ document.querySelector("#name-btn").addEventListener("click", getName);
+</script>
