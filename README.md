@@ -1,55 +1,56 @@
-# Astro Starter Kit: Basics
+# ShelfSpace📚
 
-```
-npm create astro@latest -- --template basics
-```
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![CSS](https://img.shields.io/badge/css3-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![fontawesome](https://img.shields.io/badge/font%20awesome-%23339AF0.svg?&style=for-the-badge&logo=font%20awesome&logoColor=white) ![Netlify](https://img.shields.io/badge/netlify-%23000000.svg?style=for-the-badge&logo=netlify&logoColor=#00C7B7) [![Built with Astro](https://astro.badg.es/v1/built-with-astro.svg)](https://astro.build)
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Description
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+ShelfSpace is a web app that lets you keep track of the books you've read. You can search for books using the Open Library API, add them to your reading list, and it will give you the date that you added the book along with an image of the book cover. Your reading list is saved to your browser's local storage, so you can come back to it later and see your progress.
 
-![basics](https://user-images.githubusercontent.com/4677417/186188965-73453154-fdec-4d6b-9c34-cb35c248ae5b.png)
+The app is built with Astro, a modern static site builder for the modern web. It uses Tailwind CSS for styling, and JavaScript for interacting with the Open Library API and managing local storage.
 
+Deployed link: https://shelfspace.netlify.app/
 
-## 🚀 Project Structure
+## Table of Contents
 
-Inside of your Astro project, you'll see the following folders and files:
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contribution and Attribution](#contribution-and-attribution)
+- [Technologies](#technologies)
+- [Questions](#questions)
 
-```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## Installation
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+To get started with this project, first clone the repository and navigate to the project directory: <br/>
+`cd Desktop/` <br/>
+`git clone https://github.com/HunterPadgett/book-app.git` <br/>
+`cd book-app`
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Next, install the dependencies: <br/>
+`npm i`
 
-Any static assets, like images, can be placed in the `public/` directory.
+Start the development server: <br/>
+`npm run dev`
 
-## 🧞 Commands
+This will start the app at http://localhost:3000.
 
-All commands are run from the root of the project, from a terminal:
+## Usage
 
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `npm install`          | Installs dependencies                            |
-| `npm run dev`          | Starts local dev server at `localhost:3000`      |
-| `npm run build`        | Build your production site to `./dist/`          |
-| `npm run preview`      | Preview your build locally, before deploying     |
-| `npm run astro ...`    | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro --help` | Get help using the Astro CLI                     |
+To use the app, simply enter your name on the home screen. This will automatically route you to your My Books page.
 
-## 👀 Want to learn more?
+To add a book to your reading list, type a book's title into the input area then click the "add" button. This will save the book to your browser's local storage and display it to your page.
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+The books you add will persist and still display even after a page refresh.
+
+## Contribution and Attribution
+
+Contributions to My Read Books are welcome! If you have an idea for a feature or improvement, feel free to open an issue or submit a pull request.
+
+This project was created by [Hunter Padgett](https://hunterpadgett.netlify.app/) and uses [Open Library API](https://openlibrary.org/dev/docs/api/books)
+
+## Technologies
+
+This app was built with Astro, Tailwind CSS, and JavaScript. The app is hosted on Netlify.
+
+## Questions
+
+If you would like to see more of my work, checkout my [GitHub](https://github.com/HunterPadgett) repo and my [portfolio](https://hunterpadgett.netlify.app/). If you have any additional questions, please contact me directly at: hunterpadgett.dev@gmail.com
