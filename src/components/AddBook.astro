@@ -110,7 +110,7 @@ import Books from "../pages/books.astro";
    });
 
    // Sort the books by their index property so i can display them in the order they were push into the array
-   books.sort((a, b) => a.index - b.index);
+   books.sort((a, b) => b.index - a.index);
 
   //  call the addBook function with each books title to display the stored books into the DOM on page load
    books.forEach((book) => {
