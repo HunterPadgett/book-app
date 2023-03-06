@@ -91,7 +91,7 @@ import Books from "../pages/books.astro";
    books.push(book);
    localStorage.setItem("myBooks", JSON.stringify(books));
    const booksLc = JSON.parse(localStorage.getItem("myBooks"));
-   bookNumber.innerHTML = booksLc.length;
+   bookNumber.textContent = booksLc.length;
 
    //  error handling
   } catch (error) {
@@ -110,7 +110,7 @@ import Books from "../pages/books.astro";
    });
 
    // Sort the books by their index property so i can display them in the order they were push into the array
-   books.sort((a, b) => b.index - a.index);
+   books.sort((a, b) => a.index - b.index);
 
   //  call the addBook function with each books title to display the stored books into the DOM on page load
    books.forEach((book) => {
