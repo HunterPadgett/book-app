@@ -2,10 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import AddBook from "../components/AddBook.astro";
 
-const showHr = true;
+const showHr = false;
 ---
 
-<Layout title="My books">
+<Layout title="ShelfSpace | My Books">
  {showHr && <hr class="my-5 mx-auto w-2/3 md:my-10" />}
  <!-- header of page -->
  <div
@@ -15,13 +15,15 @@ const showHr = true;
    <h1 class="mb-3 break-words text-4xl text-base-content md:mb-1 md:text-5xl">
     Hello, <span class="username text-secondary"></span>
    </h1>
-   <p class="mb-3 text-lg">Explore your collection</p>
+   <p class="mb-3 text-lg">Explore and add to your collection</p>
   </div>
   <div class="stats overflow-hidden md:max-w-xs">
    <div class="stat p-1">
     <div class="stat-title text-base-content">book count</div>
-    <div class="stat-value mx-auto flex text-2xl text-primary md:text-3xl">
-     69k
+    <div
+     class="book-number stat-value mx-auto flex text-2xl text-primary md:text-3xl"
+    >
+     0
      <div class="stat-figure ml-2 text-primary">
       <svg
        xmlns="http://www.w3.org/2000/svg"
@@ -50,13 +52,15 @@ const showHr = true;
 </Layout>
 
 <script>
- const username = document.querySelector(".username");
  function onLoad() {
-  if (localStorage.getItem("sssUsername")) {
-   const name = localStorage.getItem("ssUsername");
-   username.textContent = name;
+  // displaying users name to DOM
+  const username = document.querySelector(".username");
+  if (localStorage.getItem("ssUsername")) {
+   const storedName = localStorage.getItem("ssUsername");
+   username.textContent = storedName;
+   console.log(storedName);
   } else {
-    username.textContent = 'nameless user';
+   username.textContent = "nameless user";
   }
  }
 

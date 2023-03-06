@@ -1,3 +1,7 @@
+---
+import Books from "../pages/books.astro";
+---
+
 <!-- input and button -->
 <div class="container mx-auto flex items-center justify-center p-4">
  <input
@@ -13,48 +17,54 @@
 <!-- book container -->
 <div
  class="container mx-auto grid grid-cols-1 gap-8 p-4 md:grid-cols-2"
- id="books-read"
+ id="book-container"
 >
  <!-- book  -->
 </div>
 
 <script>
- async function addBook() {
-  const title = document.querySelector("input");
-  const bookSection = document.querySelector("#books-read");
-  const convertedTitle = title.value
-   .split(" ")
-   .join("+")
-   .toLocaleLowerCase()
-   .trim();
+ const bookNumber = document.querySelector(".book-number");
+ const books = [];
+ const bookSection = document.querySelector("#book-container");
+
+ function grabData() {
+  const input = document.querySelector("input");
+  const title = input.value;
+  addBook(title);
+  input.value = "";
+ }
+
+ async function addBook(title) {
+  const convertedTitle = title.split(" ").join("+").toLocaleLowerCase().trim();
   let coverUrl = ``;
   const month = new Date().getMonth() + 1;
   const day = new Date().getDate();
   const year = new Date().getFullYear();
   const dateAdded = `${month}/${day}/${year}`;
-  console.log(dateAdded);
+  // console.log(dateAdded);
 
   try {
    // first fetch for book title
    const response = await fetch(
-    `https://openlibrary.org/search.json?q=${convertedTitle}&limit=10`
+    `https://openlibrary.org/search.json?q=${convertedTitle}&limit=5`
    );
    const data = await response.json();
    const bookTitle = data.docs[0].title;
    const isbn = data.docs[0].isbn[0];
    const cover = data.docs[0].cover_i;
-   console.log(data);
-   //  second fetch for ISBN
-   const postsResponse = await fetch(
+   //  console.log(data);
+
+   //  second fetch for ISBN to get the cover just in case the intial fetch doesnt have a cover
+   const isbnResponse = await fetch(
     `https://openlibrary.org/isbn/${isbn}.json`
    );
-   const isbnData = await postsResponse.json();
-   console.log(isbnData);
+   const isbnData = await isbnResponse.json();
+   //  console.log(isbnData);
    if (cover) {
     coverUrl = `https://covers.openlibrary.org/b/id/${cover}-M.jpg`;
    } else {
     coverUrl = `https://covers.openlibrary.org/b/id/${isbnData.covers[0]}-M.jpg`;
-    console.log(coverUrl);
+    // console.log(coverUrl);
    }
 
    const html = `
@@ -70,13 +80,49 @@
     </div>
    `;
 
-   bookSection.insertAdjacentHTML("beforeend", html);
-   title.value = "";
+   bookSection.insertAdjacentHTML("afterbegin", html);
+
+   const book = {
+    cover: coverUrl,
+    title: bookTitle,
+    date: dateAdded,
+   };
+
+   books.push(book);
+   localStorage.setItem("myBooks", JSON.stringify(books));
+   const booksLc = JSON.parse(localStorage.getItem("myBooks"));
+   bookNumber.innerHTML = booksLc.length;
+
    //  error handling
   } catch (error) {
    console.error(error);
   }
  }
 
- document.querySelector("#add-book-btn").addEventListener("click", addBook);
+ function displayBooks() {
+  if (localStorage.getItem("myBooks")) {
+   const books = JSON.parse(localStorage.getItem("myBooks"));
+   //  console.log(books);
+
+   // Add an index property to each book object
+   books.forEach((book, index) => {
+    book.index = index;
+   });
+
+   // Sort the books by their index property so i can display them in the order they were push into the array
+   books.sort((a, b) => a.index - b.index);
+
+  //  call the addBook function with each books title to display the stored books into the DOM on page load
+   books.forEach((book) => {
+    console.log(book.title);
+    addBook(book.title);
+   });
+  }
+
+  // Remove the event listener after the function has executed once so the books dont continously get added over and over and more than once on each load
+  document.removeEventListener("DOMContentLoaded", displayBooks);
+ }
+
+ document.addEventListener("DOMContentLoaded", displayBooks);
+ document.querySelector("#add-book-btn").addEventListener("click", grabData);
 </script>

@@ -4,7 +4,7 @@ import Layout from "../layouts/Layout.astro";
 const showHr = false;
 ---
 
-<Layout title="Landing Page">
+<Layout title="ShelfSpace | Home">
  {showHr && <hr class="my-5 mx-auto w-2/3 md:my-10" />}
  <div class="container mx-auto grid p-2 text-center md:w-2/3 md:p-4">
   <img
@@ -23,12 +23,6 @@ const showHr = false;
    experience.
   </p>
 
-  <p class="mb-2 text-xs md:text-sm">
-   * if you have already entered a name <a
-    class="text-primary underline hover:scale-105"
-    href="/books">click here</a
-   > or "My Books" in the top right .
-  </p>
   <div class="container mx-auto flex items-center justify-center p-2">
    <input
     type="text"
@@ -43,11 +37,16 @@ const showHr = false;
     ></a
    >
   </div>
+  <p class="mb-2 text-xs md:text-sm">
+   * Already entered a name? <a
+    class="underline hover:text-primary transition-all"
+    href="/books">click here</a
+   >
+  </p>
  </div>
 </Layout>
 
 <script>
-
  function getName() {
   const name = document.querySelector("#name-input");
   // ridiculous way to store capitalized first name from user into a variable. I hate typescript :)
