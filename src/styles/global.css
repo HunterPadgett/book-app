@@ -35,7 +35,7 @@ body {
   rgba(0, 0, 0, 1) 100%
  );
  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#781287",endColorstr="#000000",GradientType=1);
- color: rgba(255, 255, 255, 0.9);
+ color: rgba(255, 255, 255, 0.95);
 }
 
 footer {
