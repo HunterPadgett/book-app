@@ -10,6 +10,9 @@ The app is built with Astro, a modern static site builder for the modern web. It
 
 Deployed link: https://shelfspace.netlify.app/
 
+![image](https://user-images.githubusercontent.com/106113692/223767918-415dbd6c-e13e-48ff-88a6-c553592fd78b.png)
+![image](https://user-images.githubusercontent.com/106113692/223768052-d7840a92-e28b-4fa8-a451-e3e89098da2f.png)
+
 ## Table of Contents
 
 - [Installation](#installation)
