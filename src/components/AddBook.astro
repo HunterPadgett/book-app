@@ -23,9 +23,7 @@ import Books from "../pages/books.astro";
 </div>
 
 <script>
- const bookNumber = document.querySelector(".book-number");
  const books = [];
- const bookSection = document.querySelector("#book-container");
 
  function grabData() {
   const input = document.querySelector("input");
@@ -34,14 +32,18 @@ import Books from "../pages/books.astro";
   input.value = "";
  }
 
- async function addBook(title) {
+ async function addBook(title, dateAdded = null) {
+  const bookSection = document.querySelector("#book-container");
+  const bookNumber = document.querySelector(".book-number");
   const convertedTitle = title.split(" ").join("+").toLocaleLowerCase().trim();
   let coverUrl = ``;
   const month = new Date().getMonth() + 1;
   const day = new Date().getDate();
   const year = new Date().getFullYear();
-  const dateAdded = `${month}/${day}/${year}`;
-  // console.log(dateAdded);
+  const newDate = `${month}/${day}/${year}`;
+  // dateAdded will only exist if the book is being added from localstorage in the displayBooks function
+  // otherwise give the book from the input a date of date.now basically
+  const date = dateAdded ? dateAdded : newDate;
 
   try {
    // first fetch for book title
@@ -69,13 +71,13 @@ import Books from "../pages/books.astro";
 
    const html = `
     <div
-      class="card z-10 card-side mx-auto max-w-lg border-2 bg-primary-content border-base-content shadow-lg shadow-neutral-600">
+      class="card z-10 card-side mx-auto max-w-lg border-2 bg-primary-content border-base-content shadow-md shadow-neutral-600">
       <figure>
         <img class="max-w-xs" src="${coverUrl}" alt="${coverUrl}" />
       </figure>
       <div class="card-body p-4 text-center">
         <h2 class="card-title text-2xl mx-auto">${bookTitle}</h2>
-        <p>Date added: ${dateAdded}</p>
+        <p>Date added: ${date}</p>
       </div>
     </div>
    `;
@@ -88,8 +90,10 @@ import Books from "../pages/books.astro";
     date: dateAdded,
    };
 
+   // add created book to books array and set that array in localstorage
    books.push(book);
    localStorage.setItem("myBooks", JSON.stringify(books));
+   // get books array FROM localstorage and grab the length of the array to set the book count number
    const booksLc = JSON.parse(localStorage.getItem("myBooks"));
    bookNumber.textContent = booksLc.length;
 
@@ -99,7 +103,7 @@ import Books from "../pages/books.astro";
   }
  }
 
- function displayBooks() {
+ async function displayBooks() {
   if (localStorage.getItem("myBooks")) {
    const books = JSON.parse(localStorage.getItem("myBooks"));
    //  console.log(books);
@@ -110,13 +114,14 @@ import Books from "../pages/books.astro";
    });
 
    // Sort the books by their index property so i can display them in the order they were push into the array
-   books.sort((a, b) => a.index - b.index);
+   const sortedBooks = books.sort((a, b) => a.index - b.index);
+   console.log(sortedBooks);
 
-  //  call the addBook function with each books title to display the stored books into the DOM on page load
-   books.forEach((book) => {
-    console.log(book.title);
-    addBook(book.title);
-   });
+   const bookPromises = sortedBooks.map((book) =>
+    // call the addBook function with the book title AND date so that the original date the book was added doesnt get overridden in the addBook()
+    addBook(book.title, book.date)
+   );
+   await Promise.all(bookPromises);
   }
 
   // Remove the event listener after the function has executed once so the books dont continously get added over and over and more than once on each load

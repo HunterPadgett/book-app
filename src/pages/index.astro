@@ -9,18 +9,16 @@ const showHr = false;
  <div class="container mx-auto grid p-2 text-center md:w-2/3 md:p-4">
   <img
    src="/images/dude_reading-2.svg"
-   class=" m-auto mb-3 mt-5 h-24 md:h-40"
+   class="m-auto mb-3 mt-5 h-24 md:h-40"
    alt="character reading book"
   />
   <h1 class="mb-8 text-4xl md:mb-14 md:text-6xl">Welcome to ShelfSpace</h1>
   <p class="mb-5 text-lg md:mb-10">
    The perfect reading companion where all of your reading history is at your
-   fingertips. Store and organize all your completed books in a single space,
-   without taking up any actual space.
+   fingertips.
   </p>
   <p class="mb-5 text-lg md:mb-10">
-   To get started please enter your first name below for a more customized
-   experience.
+   To get started please enter your first name below.
   </p>
 
   <div class="container mx-auto flex items-center justify-center p-2">
@@ -71,11 +69,10 @@ const showHr = false;
    nameInput.classList.remove("input-secondary");
    nameInput.classList.add("input-error");
    nameInput.placeholder = "Please enter your name!";
+  } else {
+   localStorage.setItem("ssUsername", correctName);
+   continueToNextPage();
   }
-
-  localStorage.setItem("ssUsername", correctName);
-
-  continueToNextPage();
  }
 
  //  this function changes the a tag surrounding the btn to change it's href to the book page if a ssUsername exists in local storage
